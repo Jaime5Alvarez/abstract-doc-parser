@@ -72,10 +72,9 @@ def doc_parser_by_path(path: str, provider: DocumentParserProvider):
 
         result = interactor.execute(path=path)
         end_time = time.time()
-        result_time = end_time - start_time
         return {
             "data": {
-                "time": result_time,
+                "time": end_time - start_time,
                 "path": path,
                 "provider": provider,
                 "result": result,
