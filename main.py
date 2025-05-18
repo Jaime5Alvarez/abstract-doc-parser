@@ -51,8 +51,7 @@ def doc_parser_by_path(path: str, provider: DocumentParserProvider):
         }
     except HTTPException as e:
         return JSONResponse(
-            status_code=e.status_code,
-            content={"data": {"error": e.detail}}
+            status_code=e.status_code, content={"data": {"error": e.detail}}
         )
     except Exception as e:
         return JSONResponse(
