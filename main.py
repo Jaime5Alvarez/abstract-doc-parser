@@ -1,4 +1,4 @@
-from fastapi import FastAPI
+from fastapi import FastAPI, HTTPException
 from src.modules.docs_parser.application.parse_document_by_path_interactor import (
     ParseDocumentByPathInteractorFactory,
 )
@@ -37,38 +37,7 @@ def doc_parser_by_path(path: str, provider: DocumentParserProvider):
     try:
         start_time = time.time()
 
-        if provider not in [
-            DocumentParserProvider.Docling,
-            DocumentParserProvider.MarkItDown,
-            DocumentParserProvider.Unstructured,
-            DocumentParserProvider.Pymupdf,
-            DocumentParserProvider.LlmParse,
-            DocumentParserProvider.AzureDocumentIntelligence,
-        ]:
-            raise ValueError(f"Provider {provider} not supported")
-
-        if provider == DocumentParserProvider.Docling:
-            interactor = ParseDocumentByPathInteractorFactory(DoclingService()).create()
-        elif provider == DocumentParserProvider.MarkItDown:
-            interactor = ParseDocumentByPathInteractorFactory(
-                MarkItDownDocumentParser()
-            ).create()
-        elif provider == DocumentParserProvider.Unstructured:
-            interactor = ParseDocumentByPathInteractorFactory(
-                UnstructuredService()
-            ).create()
-        elif provider == DocumentParserProvider.Pymupdf:
-            interactor = ParseDocumentByPathInteractorFactory(
-                DocumentParserPymupdfService()
-            ).create()
-        elif provider == DocumentParserProvider.LlmParse:
-            interactor = ParseDocumentByPathInteractorFactory(
-                LlamaParseDocumentParser()
-            ).create()
-        elif provider == DocumentParserProvider.AzureDocumentIntelligence:
-            interactor = ParseDocumentByPathInteractorFactory(
-                AzureDocumentIntelligence()
-            ).create()
+        interactor = ParseDocumentByPathInteractorFactory(provider).create()
 
         result = interactor.execute(path=path)
         end_time = time.time()
@@ -80,6 +49,11 @@ def doc_parser_by_path(path: str, provider: DocumentParserProvider):
                 "result": result,
             }
         }
+    except HTTPException as e:
+        return JSONResponse(
+            status_code=e.status_code,
+            content={"data": {"error": e.detail}}
+        )
     except Exception as e:
         return JSONResponse(
             status_code=500,
