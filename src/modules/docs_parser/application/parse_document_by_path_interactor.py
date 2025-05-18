@@ -1,7 +1,9 @@
 from fastapi import HTTPException
 from src.modules.docs_parser.domain.interfaces import IDocsParser
 from src.modules.docs_parser.domain.value_objects import DocumentParserProvider
-from src.modules.docs_parser.infraestructure.services.docling_service import DoclingService
+from src.modules.docs_parser.infraestructure.services.docling_service import (
+    DoclingService,
+)
 from src.modules.docs_parser.infraestructure.services.markitdown_service import (
     MarkItDownDocumentParser,
 )
