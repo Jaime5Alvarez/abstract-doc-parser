@@ -5,24 +5,7 @@ from src.modules.docs_parser.application.parse_document_by_path_interactor impor
 from fastapi.responses import JSONResponse
 import uvicorn
 from src.modules.docs_parser.domain.value_objects import DocumentParserProvider
-from src.modules.docs_parser.infraestructure.azure_document_intelligence import (
-    AzureDocumentIntelligence,
-)
-from src.modules.docs_parser.infraestructure.docling_service import DoclingService
-from src.modules.docs_parser.infraestructure.llamaparse_service import (
-    LlamaParseDocumentParser,
-)
-from src.modules.docs_parser.infraestructure.markitdown_service import (
-    MarkItDownDocumentParser,
-)
 import time
-
-from src.modules.docs_parser.infraestructure.pymupdf_service import (
-    DocumentParserPymupdfService,
-)
-from src.modules.docs_parser.infraestructure.unstructured_service import (
-    UnstructuredService,
-)
 
 app: FastAPI = FastAPI()
 

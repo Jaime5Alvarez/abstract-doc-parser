@@ -1,20 +1,20 @@
 from fastapi import HTTPException
 from src.modules.docs_parser.domain.interfaces import IDocsParser
 from src.modules.docs_parser.domain.value_objects import DocumentParserProvider
-from src.modules.docs_parser.infraestructure.docling_service import DoclingService
-from src.modules.docs_parser.infraestructure.markitdown_service import (
+from src.modules.docs_parser.infraestructure.services.docling_service import DoclingService
+from src.modules.docs_parser.infraestructure.services.markitdown_service import (
     MarkItDownDocumentParser,
 )
-from src.modules.docs_parser.infraestructure.unstructured_service import (
+from src.modules.docs_parser.infraestructure.services.unstructured_service import (
     UnstructuredService,
 )
-from src.modules.docs_parser.infraestructure.pymupdf_service import (
+from src.modules.docs_parser.infraestructure.services.pymupdf_service import (
     DocumentParserPymupdfService,
 )
-from src.modules.docs_parser.infraestructure.llamaparse_service import (
+from src.modules.docs_parser.infraestructure.services.llamaparse_service import (
     LlamaParseDocumentParser,
 )
-from src.modules.docs_parser.infraestructure.azure_document_intelligence import (
+from src.modules.docs_parser.infraestructure.services.azure_document_intelligence import (
     AzureDocumentIntelligence,
 )
 
