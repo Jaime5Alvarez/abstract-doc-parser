@@ -73,16 +73,24 @@ def doc_parser_by_path(path: str, provider: DocumentParserProvider):
         result = interactor.execute(path=path)
         end_time = time.time()
         result_time = end_time - start_time
-        return {"data": {"result": result, "time": result_time, "provider": provider}}
+        return {
+            "data": {
+                "time": result_time,
+                "path": path,
+                "provider": provider,
+                "result": result,
+            }
+        }
     except Exception as e:
         return JSONResponse(
             status_code=500,
             content={
                 "data": {
-                    "result": "Error parsing document",
                     "time": 0,
+                    "path": path,
                     "provider": provider,
                     "error": str(e),
+                    "result": "Error parsing document",
                 }
             },
         )
