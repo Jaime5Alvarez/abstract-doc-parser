@@ -57,7 +57,7 @@ def doc_parser_by_path(path: str, provider: DocumentParserProvider):
 
 @app.post("/doc-parser-by-blob")
 async def doc_parser_by_blob(
-    file: UploadFile = File(...), provider: DocumentParserProvider = DocumentParserProvider.Pymupdf
+    provider: DocumentParserProvider, file: UploadFile = File(...)
 ):
     try:
         start_time = time.time()
