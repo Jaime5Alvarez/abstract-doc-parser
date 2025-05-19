@@ -17,6 +17,7 @@ def read_root():
 
 @app.post("/doc-parser-by-path")
 def doc_parser_by_path(path: str, provider: DocumentParserProvider):
+    
     try:
         start_time = time.time()
 

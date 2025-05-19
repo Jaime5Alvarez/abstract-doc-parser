@@ -47,20 +47,20 @@ class ParseDocumentByPathInteractorFactory:
             )
 
         if self.provider == DocumentParserProvider.Docling:
-            interactor = DoclingService()
+            service = DoclingService()
         elif self.provider == DocumentParserProvider.MarkItDown:
-            interactor = MarkItDownDocumentParser()
+            service = MarkItDownDocumentParser()
         elif self.provider == DocumentParserProvider.Unstructured:
-            interactor = UnstructuredService()
+            service = UnstructuredService()
         elif self.provider == DocumentParserProvider.Pymupdf:
-            interactor = DocumentParserPymupdfService()
+            service = DocumentParserPymupdfService()
         elif self.provider == DocumentParserProvider.LlmParse:
-            interactor = LlamaParseDocumentParser()
+            service = LlamaParseDocumentParser()
         elif self.provider == DocumentParserProvider.AzureDocumentIntelligence:
-            interactor = AzureDocumentIntelligence()
+            service = AzureDocumentIntelligence()
         else:
             raise HTTPException(
                 status_code=400, detail=f"Provider {self.provider} not supported"
             )
 
-        return ParseDocumentByPathInteractor(interactor)
+        return ParseDocumentByPathInteractor(docs_parser=service)
