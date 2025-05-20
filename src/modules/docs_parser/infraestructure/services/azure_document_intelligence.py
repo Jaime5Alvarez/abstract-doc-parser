@@ -24,7 +24,7 @@ class AzureDocumentIntelligence(IDocsParser):
             )
             result = poller.result()
 
-            return result.content.replace("\n", "")
+            return result.content.replace("\n", " ")
         except Exception as e:
             raise ValueError(f"Error parsing document: {e}")
 
@@ -46,6 +46,6 @@ class AzureDocumentIntelligence(IDocsParser):
             )
             result = poller.result()
 
-            return result.content.replace("\n", "")
+            return result.content.replace("\n", " ")
         except Exception as e:
             raise ValueError(f"Error parsing document: {e}")
