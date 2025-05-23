@@ -16,14 +16,18 @@ from src.modules.docs_parser.infraestructure.services.llamaparse_service import 
 from src.modules.docs_parser.infraestructure.services.azure_document_intelligence import (
     AzureDocumentIntelligence,
 )
+import asyncio
 
 
 class ParseDocumentByPathInteractor:
     def __init__(self, docs_parser: IDocsParser):
         self.docs_parser = docs_parser
 
-    def execute(self, path: str) -> str:
-        return self.docs_parser.parse_with_path(path)
+    async def execute(self, path: str) -> str:
+        result = self.docs_parser.parse_with_path(path)
+        if asyncio.iscoroutine(result):
+            return await result
+        return result
 
 
 class ParseDocumentByPathInteractorFactory:

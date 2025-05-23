@@ -19,14 +19,14 @@ def read_root():
 
 
 @app.post("/doc-parser-by-path")
-def doc_parser_by_path(path: str, provider: DocumentParserProvider):
+async def doc_parser_by_path(path: str, provider: DocumentParserProvider):
     
     try:
         start_time = time.time()
 
         interactor = ParseDocumentByPathInteractorFactory(provider).create()
 
-        result = interactor.execute(path=path)
+        result = await interactor.execute(path=path)
         end_time = time.time()
         return {
             "data": {
@@ -65,7 +65,7 @@ async def doc_parser_by_blob(
         contents = await file.read()
         interactor = ParseDocumentByBlobInteractorFactory(provider).create()
         
-        result = interactor.execute(blob=contents)
+        result = await interactor.execute(blob=contents)
         end_time = time.time()
         
         return {

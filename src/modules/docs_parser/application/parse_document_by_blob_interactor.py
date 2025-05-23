@@ -1,4 +1,5 @@
 from fastapi import HTTPException
+import asyncio
 from src.modules.docs_parser.domain.interfaces import IDocsParser
 from src.modules.docs_parser.domain.value_objects import DocumentParserProvider
 from src.modules.docs_parser.infraestructure.services.docling_service import (
@@ -22,8 +23,11 @@ class ParseDocumentByBlobInteractor:
     def __init__(self, docs_parser: IDocsParser):
         self.docs_parser = docs_parser
 
-    def execute(self, blob: bytes) -> str:
-        return self.docs_parser.parse_with_blob(blob)
+    async def execute(self, blob: bytes) -> str:
+        result = self.docs_parser.parse_with_blob(blob)
+        if asyncio.iscoroutine(result):
+            return await result
+        return result
 
 
 class ParseDocumentByBlobInteractorFactory:
